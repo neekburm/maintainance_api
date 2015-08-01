@@ -5,9 +5,7 @@ from edmundsAPI import EdmundsAPI
 
 edmunds = EdmundsAPI()
 make_list = edmunds.getMakes()
+car_id = edmunds.getID('toyota', 'corolla', '2013')
+with open("edmunds_data/toyota_maintenance.json", 'w') as fp:
+    json.dump(edmunds.getMaintenanceSchedule(car_id), fp, sort_keys=True, indent=4)
 
-with open("edmunds_data/toyota_models.json", 'w') as fp:
-    json.dump(edmunds.getModels("toyota"), fp, sort_keys=True, indent=4)
-
-# with open("4runner_maintainence.json", "w") as fp:
-#     json.dump(edmunds.getMaintainanceSchedule("591"), fp, sort_keys=True, indent=4)
