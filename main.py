@@ -10,7 +10,11 @@ edmunds = EdmundsAPI()
 
 @app.route('/_get_models/<make>')
 def getModels(make):
-	return jsonify(result=edmunds.getModels(make)) 
+	return jsonify(result=edmunds.getModels(make))
+
+@app.route('/_get_id/<make>/<model>/<year>')
+def getID(make, model, year):
+	return jsonify(result=edmunds.getID(make, model, year))  
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
