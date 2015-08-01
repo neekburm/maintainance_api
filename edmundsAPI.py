@@ -9,9 +9,6 @@ class EdmundsAPI:
     def __init__(self, key=API_KEY):
         self._parameters = {'api_key': key, 'fmt': 'json'}
 
-    # def generateAPICall(self, endpoint, **kwargs):
-    #     payload = dict(self._parameters)
-
     def getMakes(self):
         endpoint = "api/vehicle/v2/makes?"
         payload = self._parameters
@@ -28,12 +25,9 @@ class EdmundsAPI:
         endpoint = "api/vehicle/v2/" + make + "/models?"
         payload = self._parameters
         response = requests.get(self.BASE_URL + endpoint, params=payload).json()
-        models = []
-        for model in response["models"]:
-            models.append('<option>' + model["name"] + '</option>')
-        return models
+        return response["models"]
 
-    def getMaintainanceSchedule(self, model_year_id):
+    def getMaintenanceSchedule(self, model_year_id):
         endpoint = "v1/api/maintenance/actionrepository/findbymodelyearid?"
         payload = self._parameters
         payload["modelyearid"] = model_year_id

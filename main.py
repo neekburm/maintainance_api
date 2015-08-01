@@ -14,7 +14,11 @@ def getModels(make):
 
 @app.route('/_get_id/<make>/<model>/<year>')
 def getID(make, model, year):
-	return jsonify(result=edmunds.getID(make, model, year))  
+	return jsonify(result=edmunds.getID(make, model, year))
+
+@app.route('/_get_maintenance_schedule/<id>')
+def getMaintenanceSchedule(id):
+	return jsonify(result=edmunds.getMaintenanceSchedule(id))  
 
 @app.route('/', methods=['GET', 'POST'])
 def index():

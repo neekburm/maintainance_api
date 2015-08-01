@@ -1,19 +1,9 @@
 {% extends "base.html" %}
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-
 {% block title %}
 	Check Auto Maintainence Schedules
 {% endblock %}
 {% block page_content %}
-	<script type="text/javascript">
-	$(function(){
-		$("#submitBtn").click(function(){
-			$("test").html("jquery worked")
-		})
-	});
-	</script>	
 	<div class="form-inline">
 		<select id="select-make">
 			{% for make in make_list["makes"] %}
