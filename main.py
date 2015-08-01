@@ -8,6 +8,10 @@ bootstrap = Bootstrap(app)
 
 edmunds = EdmundsAPI()
 
+@app.route('/_get_makes')
+def getMakes():
+	return jsonify(result=edmunds.getMakes())
+
 @app.route('/_get_models/<make>')
 def getModels(make):
 	return jsonify(result=edmunds.getModels(make))

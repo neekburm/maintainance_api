@@ -27,7 +27,7 @@ class EdmundsAPI:
         response = requests.get(self.BASE_URL + endpoint, params=payload).json()
         result = []
         for model in response["models"]:
-            result.append(model["name"])
+            result.append((model["name"], model["niceName"])
         return result
 
     def getMaintenanceSchedule(self, model_year_id):
