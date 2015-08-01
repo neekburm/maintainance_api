@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('#select-make').change(function(){
+			var make = $('#select-make option:selected').text();
+			$('#select-model').append('<option>' + make + '</option')
+		});
+	});
+</script>
+
+{% block title %}
+	Check Auto Maintainence Schedules
+{% endblock %}
+{% block page_content %}
+	<div class="form-inline">
+		<select id="select-make">
+			{% for make in make_list["makes"] %}
+				<option value="{{ make['name'] }}">{{ make['name'] }}</option>
+			{% endfor %}
+		</select>
+		<select id="select-model">
+			<option>select model</option>
+		</select>
+	</div>
+{% endblock %}
+

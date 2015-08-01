@@ -1,0 +1,35 @@
+<html>
+<head>
+<title>jQuery Hello World</title>
+ 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head> 
+</head>
+ 
+<body>
+ 
+<script type="text/javascript">
+ 
+	$(document).ready(function(){
+		$('#select-make').change(function(){
+			var make = $('#select-make option:selected').text();
+			$('#select-model').append('<option>' + make + '</option')
+		});
+	});
+</script>
+ 
+This is Hello World by HTML
+
+<select id="select-make">
+	<option>Poop</option>
+	<option>shit</option>
+	<option>ass</option>
+	<option>crap</option>
+	<option>loooo</option>
+</select>
+
+<select id="select-model">
+</select>
+ 
+</body>
+</html>
