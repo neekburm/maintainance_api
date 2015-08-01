@@ -11,10 +11,15 @@ for action in maintenance_json["actionHolder"]:
 	if action["frequency"] == 4: # 1-time event
 		if action_miles not in maintenance_json_by_miles:
 			maintenance_json_by_miles[action_miles] = []
-		maintenance_json_by_miles[action_miles].append([action["item"], action["itemDescription"]])
+		maintenance_json_by_miles[action_miles].append([action["item"], action["itemDescription"], 4])
 	if action["frequency"] == 3: # recurring event
-		if action_miles not in maintenance_json_by_miles:
-			pass
+		multiplier = 1
+		while(action_miles * multiplier <= 300000):
+			action_miles = action_miles * multiplier
+			if action_miles not in maintenance_json_by_miles:
+				maintenance_json_by_miles[action_miles] = []
+			maintenance_json_by_miles[action_miles].append([action["item"], action["itemDescription"], 3])
+			multiplier += 1
 	
 
 print(sorted(maintenance_json_by_miles.items()))

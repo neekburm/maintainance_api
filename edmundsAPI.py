@@ -25,7 +25,10 @@ class EdmundsAPI:
         endpoint = "api/vehicle/v2/" + make + "/models?"
         payload = self._parameters
         response = requests.get(self.BASE_URL + endpoint, params=payload).json()
-        return response["models"]
+        result = []
+        for model in response["models"]:
+            result.append(model["name"])
+        return result
 
     def getMaintenanceSchedule(self, model_year_id):
         endpoint = "v1/api/maintenance/actionrepository/findbymodelyearid?"
