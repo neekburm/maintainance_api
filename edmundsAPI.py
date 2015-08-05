@@ -13,7 +13,10 @@ class EdmundsAPI:
         endpoint = "api/vehicle/v2/makes?"
         payload = self._parameters
         response = requests.get(self.BASE_URL + endpoint, params=payload)
-        return response.json()
+        result = []
+        for make in response.json()["makes"]:
+            result.append("name": make["name"], "niceName": make["niceName"])
+        return result
 
     def getID(self, make, model, year):
         endpoint = "api/vehicle/v2/" + make + "/" + model + "/" + year + "?"
@@ -27,8 +30,8 @@ class EdmundsAPI:
         response = requests.get(self.BASE_URL + endpoint, params=payload).json()
         result = []
         for model in response["models"]:
-            result.append((model["name"], model["niceName"]))
-        return result
+            result.append("name": model["name"], "niceName": model["niceName"])
+        return response
 
     def getMaintenanceSchedule(self, model_year_id):
         endpoint = "v1/api/maintenance/actionrepository/findbymodelyearid?"
