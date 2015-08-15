@@ -1,18 +1,7 @@
 {% extends "base.html" %}
-
 {% block title %}
-	Check Auto Maintainence Schedules
+  Maintenance API menu
 {% endblock %}
-{% block page_content %}
-	<div class="form-inline">
-		<select id="select-make">
-			{% for make in make_list["makes"] %}
-				<option value="{{ make['name'] }}">{{ make['name'] }}</option>
-			{% endfor %}
-		</select>
-		<select id="select-model">
-			<option>select model</option>
-		</select>
-	</div>
+{% block content %}
+  <script type="text/jsx" src="{{ url_for('static', filename='js/EdmundsMenu.js') }}"></script>
 {% endblock %}
-
