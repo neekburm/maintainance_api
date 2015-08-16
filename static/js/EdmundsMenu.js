@@ -4,7 +4,7 @@
 
 // var ModelMenu = React.createClass({
 //   getInitialState: function() {
-//     return {data: []};
+//     return {makes: []};
 //   }
 //
 //   render: function() {
@@ -18,18 +18,47 @@
 
 var MakeMenu = React.createClass({
   getInitialState: function() {
-    return {data: []};
+    return {makes: [],
+            models: [],
+            url1: this.props.url1,
+            url2: this.props.url2};
   },
   componentDidMount: function() {
     $.ajax({
-      url: this.props.url,
+      url: this.state.url1,
       dataType: 'json',
       cache: false,
       success: function(data) {
-        this.setState({data: data});
+        this.setState({makes: data});
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
+        console.error(this.props.url1, status, err.toString());
+      }.bind(this)
+    });
+    $.ajax({
+      url: this.state.url2,
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({models: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url2, status, err.toString());
+      }.bind(this)
+    });
+  },
+  handleMakeChange: function(event) {
+    this.setState({chosenMake: event.target.selected});
+    this.setState({url2: this.props.url2 + chosenMake});
+    $.ajax({
+      url: this.state.url2,
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({models: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url2, status, err.toString());
       }.bind(this)
     });
   },
@@ -37,7 +66,8 @@ var MakeMenu = React.createClass({
     return (
       <div className="makeMenu">
         <h1>Select Make and Model</h1>
-        <MakeSelect data={this.state.data} />
+        <MakeSelect data={this.state.makes} onChange={this.handleMakeChange}/>
+        <ModelSelect data={this.state.models} />
       </div>
     );
   }
@@ -45,30 +75,48 @@ var MakeMenu = React.createClass({
 
 var MakeSelect = React.createClass({
   render: function() {
-    var commentNodes = this.props.data.map(function (comment) {
+    var makeNodes = this.props.data.map(function (make) {
       return (
-        <MakeOption niceName={comment.niceName}>
-          {comment.name}
+        <MakeOption niceName={make.niceName}>
+          {make.name}
         </MakeOption>
       );
     });
     return (
       <select className="makeSelect">
-        {commentNodes}
+        {makeNodes}
       </select>
     );
   }
 });
 
+var ModelSelect = React.createClass({
+  render: function() {
+    var modelNodes = this.props.data.map(function (model) {
+      return (
+        <MakeOption niceName={model.niceName}>
+          {model.name}
+        </MakeOption>
+      );
+    });
+    return (
+      <select className="modelSelect">
+        {modelNodes}
+      </select>
+    );
+  }
+
+});
+
 var MakeOption = React.createClass({
   render: function() {
     return (
-        <option class="makeOption" value="{this.props.niceName}">{this.props.children}</option>
+        <option className="makeOption" value="{this.props.niceName}">{this.props.children}</option>
     );
   }
 });
 
 React.render(
-  <MakeMenu url="_get_makes"/>,
+  <MakeMenu url1="_get_makes" url2="_get_models/am-general"/>,
   document.getElementById('content')
 );
