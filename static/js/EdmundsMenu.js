@@ -50,18 +50,19 @@ var MakeMenu = React.createClass({
   handleMakeChange: function(event) {
     this.setState({chosenMake: event.target.selected});
     this.setState({url2: this.props.url2 + chosenMake});
-    $.ajax({
-      url: this.state.url2,
-      dataType: 'json',
-      cache: false,
-      success: function(data) {
-        this.setState({models: data});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(this.props.url2, status, err.toString());
-      }.bind(this)
-    });
   },
+  componentWillUpdate()
+  $.ajax({
+    url: this.state.url2,
+    dataType: 'json',
+    cache: false,
+    success: function(data) {
+      this.setState({models: data});
+    }.bind(this),
+    error: function(xhr, status, err) {
+      console.error(this.props.url2, status, err.toString());
+    }.bind(this)
+  });
   render: function() {
     return (
       <div className="makeMenu">
